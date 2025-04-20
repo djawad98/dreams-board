@@ -3,13 +3,13 @@ import { Head } from '@inertiajs/react'
 import {thousandSeparator} from '../../app/libs/utility.string'
 import { convertToJalaali } from '../../app/libs/utility.date'
 
-export default function Home({flight}: {flight: FlightProposal}) {
+export default function Home({flight, dolor}: {flight: FlightProposal, dolor: string}) {
   const link = flight.leavingFlightGroup?.departureDateTime ? `https://www.alibaba.ir/international/THRALL-LONALL?adult=1&child=0&infant=0&departing=${convertToJalaali(flight.leavingFlightGroup?.departureDateTime)}&flightClass=economy&baggages[0]=2` : ''
   
   return (
     <>
       <Head title="Homepage" />
-
+      {dolor}
       <div className="fixed xl:absolute left-8 right-8 top-0 bottom-0 xl:inset-0 max-w-screen-xl mx-auto before:content-[''] before:[background:repeating-linear-gradient(0deg,var(--sand-5)_0_4px,transparent_0_8px)] before:absolute before:top-0 before:left-0 before:h-full before:w-px after:content-[''] after:[background:repeating-linear-gradient(0deg,var(--sand-5)_0_4px,transparent_0_8px)] after:absolute after:top-0 after:right-0 after:h-full after:w-px"></div>
 
       <div className="pt-4 h-full flex flex-col">

@@ -1,11 +1,12 @@
 import { inject } from '@adonisjs/core';
 import type { HttpContext } from '@adonisjs/core/http'
 import AlibabaAdapter from './alibaba/adpater.js';
+import { PuppeteerScrapper } from '../libs/puppeteer.js';
 
 export default class AlibabaController {
     @inject()
     async lowestFlight({inertia}: HttpContext, AlibabaAdapter: AlibabaAdapter){
-        return inertia.render('home', {flight: await AlibabaAdapter.getLowestFlightIn30Days()});
+        return inertia.render('home', {flight: await AlibabaAdapter.getLowestFlightIn30Days(), dolor: PuppeteerScrapper.getDollorPriceInIRT()});
     }
 
     @inject()
