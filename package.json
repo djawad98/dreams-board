@@ -69,6 +69,7 @@
     "jalaali-js": "^1.2.8",
     "luxon": "^3.6.1",
     "mysql2": "^3.14.0",
+    "puppeteer-core": "^24.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "reflect-metadata": "^0.2.2"

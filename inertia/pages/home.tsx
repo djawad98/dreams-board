@@ -1,8 +1,11 @@
 import { FlightProposal } from '#controllers/alibaba/models'
 import { Head } from '@inertiajs/react'
 import {thousandSeparator} from '../../app/libs/utility.string'
+import { convertToJalaali } from '../../app/libs/utility.date'
 
 export default function Home({flight}: {flight: FlightProposal}) {
+  const link = flight.leavingFlightGroup?.departureDateTime ? `https://www.alibaba.ir/international/THRALL-LONALL?adult=1&child=0&infant=0&departing=${convertToJalaali(flight.leavingFlightGroup?.departureDateTime)}&flightClass=economy&baggages[0]=2` : ''
+  
   return (
     <>
       <Head title="Homepage" />
@@ -41,7 +44,6 @@ export default function Home({flight}: {flight: FlightProposal}) {
                 <h2 className="text-lg font-semibold">
                   <a href="https://docs.adonisjs.com" target="_blank">
                     <span>Lowest flight</span>
-                    <span className="absolute inset-0"></span>
                   </a>
                 </h2>
 
@@ -56,8 +58,8 @@ export default function Home({flight}: {flight: FlightProposal}) {
                       {thousandSeparator(flight?.prices[0].perPassenger)} IRR
                     </li>
                     <li>
-                      <span>Link:</span>
-                      {thousandSeparator(flight?.prices[0].perPassenger)} IRR
+                      <a href={link}>Link</a>
+                      
                     </li>
                     
                   </ul>
@@ -79,8 +81,8 @@ export default function Home({flight}: {flight: FlightProposal}) {
             <div className="space-y-1">
               <h2 className="text-lg font-semibold">
                 <a href="https://adocasts.com" target="_blank">
-                  <span>Adocasts</span>
-                  <span className="absolute inset-0"></span>
+                  <span>Match Price</span>
+                  <span>Football Match Price</span>
                 </a>
               </h2>
 

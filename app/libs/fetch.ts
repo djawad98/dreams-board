@@ -3,7 +3,6 @@ export default async function apiFetch<T>(
   url: string,
   options?: RequestInit,
 ): Promise<T> {
-  try {
     const response = await fetch(
       url,
       {
@@ -15,8 +14,5 @@ export default async function apiFetch<T>(
       }
     );
     return response.json() as T;
-  } catch (e) {
-    console.error(url,e);
-    throw new Error(JSON.stringify(url))
-  }
+  
 }
