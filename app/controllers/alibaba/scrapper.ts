@@ -23,7 +23,6 @@ export default class AlibabScrapper {
   };
 
   async getRequest(payload: {adult: number, departureDate: string}): Promise<string>{
-
     const body = JSON.stringify({
       adult: payload.adult,
       child: 0,

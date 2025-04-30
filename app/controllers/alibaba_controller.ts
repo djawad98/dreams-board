@@ -6,7 +6,11 @@ import { PuppeteerScrapper } from '../libs/puppeteer.js';
 export default class AlibabaController {
     @inject()
     async lowestFlight({inertia}: HttpContext, AlibabaAdapter: AlibabaAdapter){
-        return inertia.render('home', {flight: await AlibabaAdapter.getLowestFlightIn30Days(), dolor: PuppeteerScrapper.getDollorPriceInIRT()});
+        return inertia.render('home', {
+            flight: await AlibabaAdapter.getLowestFlightIn30Days(), 
+            currencyPrice: await PuppeteerScrapper.getCurrencyPriceInIRT(),
+            football: await PuppeteerScrapper.getFootballTicketPriceInIRT()
+        });
     }
 
     @inject()

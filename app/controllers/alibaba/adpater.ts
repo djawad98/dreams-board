@@ -8,7 +8,7 @@ export default class AlibabaAdapter {
   async getLowestFlightIn30Days(): Promise<FlightProposal>{
     const [today] = new Date().toISOString().split("T")
     const calendarRequestId = await scrapper.getRequest({adult:1, departureDate: today});
-
+    
     const lowestFlight = await scrapper.getPriceCalendar(calendarRequestId).then(response => {
       return response.result.calenderDataLists
         .filter(day => !day.isDisabled)
