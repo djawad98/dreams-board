@@ -10,3 +10,4 @@
 import AlibabaController from '#controllers/alibaba_controller'
 import router from '@adonisjs/core/services/router'
 router.get('/', [AlibabaController, "lowestFlight"])
+router.get('/liverpool', [AlibabaController, "liverpool"])

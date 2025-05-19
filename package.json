@@ -64,15 +64,17 @@
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^4.0.0",
     "@inertiajs/react": "^2.0.8",
+    "@tailwindcss/vite": "^4.1.7",
     "@vinejs/vine": "^3.0.0",
     "edge.js": "^6.2.1",
     "jalaali-js": "^1.2.8",
     "luxon": "^3.6.1",
     "mysql2": "^3.14.0",
+    "primereact": "^10.9.5",
     "puppeteer-core": "^24.6.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "reflect-metadata": "^0.2.2"
+    "tailwindcss": "^4.1.7"
   },
   "hotHook": {
     "boundaries": [

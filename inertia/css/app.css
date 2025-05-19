@@ -1,10 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@layer theme, base, components, utilities,primereact;
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
+@import "primereact/resources/themes/mira/theme.css" layer(primereact);
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../../resources/views";
+@source "../pages";
