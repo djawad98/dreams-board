@@ -7,6 +7,7 @@ import imgThree from '../assets/3.webp'
 import imgFour from '../assets/4.jpg'
 import { thousandSeparator } from '../../app/libs/utility.string';
 import {DreamData} from '../../app/models/dream-data.entities'
+import apiFetch from '../../app/libs/fetch';
 const images = [
   imgTwo,
   imgOne,
@@ -16,9 +17,26 @@ const images = [
 
 
 
-export default function Dreamboard({flight, hotel, matchTicket}: DreamData) {
+export default function Dreamboard() {
+  const [flight, setFlight] = useState<DreamData['flight'] | null>(null);
+  const [hotel, setHotel] = useState<DreamData['hotel'] | null>(null);
+  const [matchTicket, setMatchTicket] = useState<DreamData['matchTicket'] | null>(null);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const dreamPrice = flight.price + matchTicket.priceRial + hotel.totalPrice;
+  
+  useEffect(() => {
+    apiFetch<DreamData['flight']>('/flight')
+      .then(response => {
+        setFlight(response)
+      })
+    apiFetch<DreamData['matchTicket']>('/match-ticket')
+      .then(response => {
+        setMatchTicket(response)
+      })
+    // setFlight(await apiFetch<DreamData['flight']>('/flight'))
+  }, [])
+
+  const dreamPrice = (flight?.price || 0) + (matchTicket?.priceRial || 0) + (hotel?.totalPrice || 0);
 
   // Auto slider effect
   useEffect(() => {
@@ -36,7 +54,7 @@ export default function Dreamboard({flight, hotel, matchTicket}: DreamData) {
         label="Book Now" 
         severity='danger'
         icon="pi pi-external-link" 
-        onClick={() => window.open(flight.link, '_blank')}
+        onClick={() => window.open(flight?.link, '_blank')}
         className="w-full"
       />
     </div>
@@ -65,22 +83,22 @@ export default function Dreamboard({flight, hotel, matchTicket}: DreamData) {
           {/* Flight Card */}
           <Card 
             title="Flight Ticket" 
-            subTitle={`${flight.from} to ${flight.to}`}
+            subTitle={`${flight?.from} to ${flight?.to}`}
             footer={flightCardFooter}
             className="w-full md:w-1/3 bg-white bg-opacity-90 shadow-lg"
           >
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
                 <span className="font-bold">Date:</span>
-                <span>{flight.date}</span>
+                <span>{flight?.date}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Agency:</span>
-                <span>{flight.agency}</span>
+                <span>{flight?.agency}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Price:</span>
-                <span>{thousandSeparator(flight.price)} IRR</span>
+                <span>{thousandSeparator(flight?.price || 0)} IRR</span>
               </div>
             </div>
           </Card>
@@ -88,25 +106,25 @@ export default function Dreamboard({flight, hotel, matchTicket}: DreamData) {
           {/* Football Match Card */}
           <Card 
             title="Football Match Ticket" 
-            subTitle={matchTicket.teams}
+            subTitle={matchTicket?.teams}
             className="w-full md:w-1/3 bg-white bg-opacity-90 shadow-lg"
           >
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
                 <span className="font-bold">Venue:</span>
-                <span>{matchTicket.venue}</span>
+                <span>{matchTicket?.venue}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Date:</span>
-                <span>{matchTicket.date}</span>
+                <span>{matchTicket?.date}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Price:</span>
-                <span>€{thousandSeparator(matchTicket.priceEuro)}</span>
+                <span>€{thousandSeparator(matchTicket?.priceEuro || 0)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Price in IRR:</span>
-                <span>{thousandSeparator(matchTicket.priceRial)}IRR</span>
+                <span>{thousandSeparator(matchTicket?.priceRial || 0)}IRR</span>
               </div>
             </div>
           </Card>
@@ -114,29 +132,29 @@ export default function Dreamboard({flight, hotel, matchTicket}: DreamData) {
           {/* Hotel Card */}
           <Card 
             title="Hotel Accommodation" 
-            subTitle={hotel.name}
+            subTitle={hotel?.name || 0}
             className="w-full md:w-1/3 bg-white bg-opacity-90 shadow-lg"
           >
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
                 <span className="font-bold">Location:</span>
-                <span>{hotel.location}</span>
+                <span>{hotel?.location || 0}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Rating:</span>
-                <span>{hotel.rating}</span>
+                <span>{hotel?.rating}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Price per night:</span>
-                <span>{thousandSeparator(hotel.pricePerNight)} IRR</span>
+                <span>{thousandSeparator(hotel?.pricePerNight || 0)} IRR</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Nights:</span>
-                <span>{hotel.nights}</span>
+                <span>{hotel?.nights}</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-bold">Total:</span>
-                <span>{thousandSeparator(hotel.pricePerNight * hotel.nights)} IRR</span>
+                <span>{thousandSeparator((hotel?.pricePerNight || 0) * (hotel?.nights || 0))} IRR</span>
               </div>
             </div>
           </Card>

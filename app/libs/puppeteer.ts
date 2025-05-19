@@ -17,10 +17,10 @@ export class PuppeteerScrapper{
     const selector = `[class*='styles_LisItem']:first-of-type > [class*='styles_Link__'] > span`;
     await page.waitForSelector(selector)
     const price = await page.$eval(selector, el => el.innerHTML);
-
-    await PuppeteerScrapper.browser?.close();
+    PuppeteerScrapper.browser?.close();
     return price.split(/[\$\€]/ig)[1]
     } catch(e){
+      console.log(e)
       return '0'
     }
   }
@@ -43,7 +43,7 @@ export class PuppeteerScrapper{
       const price = await page.$eval('#l-price_dollar_rl .info-price', el => el.innerHTML);
       const euroPrice = await page.$eval('#l-price_eur .info-price', el => el.innerHTML);
       
-      await PuppeteerScrapper.browser?.close();
+      PuppeteerScrapper.browser?.close();
       return {dolor: price.replace(",",""), euro: euroPrice.replace(",","")}
     } catch(e){
       return {dolor: '0', euro: '0'}
