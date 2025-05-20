@@ -23,7 +23,7 @@ export default class AlibabaAdapter {
     const [departureDate] = lowestFlight.departureDate.split("T")
     const lowestRequestId = await scrapper.getRequest({ adult: 1, departureDate: departureDate });
 
-    const result = await scrapper.getLodonTehranTickets(lowestRequestId).then(proposals => {
+    const result = await scrapper.getLondonTehranTickets(lowestRequestId).then(proposals => {
       return proposals.sort((p1, p2) => {
         return (
           p1.prices.reduce((total, price) => total + price.perPassenger, 0) -
@@ -32,7 +32,7 @@ export default class AlibabaAdapter {
       })?.[0]
     })
 
-    if (result.leavingFlightGroup) {
+    if (result?.leavingFlightGroup) {
 
       return {
         agency: result.leavingFlightGroup.airlineName,

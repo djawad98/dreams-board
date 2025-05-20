@@ -18,7 +18,6 @@ export default class CacheMiddleware {
 
     // Check if the response is cached
     const cachedResponse = cache.get(cacheKey)
-    console.log(cacheKey,!!cachedResponse)
     if (cachedResponse) {
       const { body, headers, statusCode } = cachedResponse
       response.status(statusCode).send(body)

@@ -39,7 +39,7 @@ export default class AlibabScrapper {
     return result.requestId;
   }
 
-  async getLodonTehranTickets(requestId: string) {
+  async getLondonTehranTickets(requestId: string) {
     return apiFetch<TehranLondonRespone>(`${this.url}/${requestId}`, {
       method: 'GET',
       headers: this.headers,
